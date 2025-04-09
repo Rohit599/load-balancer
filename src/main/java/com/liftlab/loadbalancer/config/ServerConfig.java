@@ -4,7 +4,6 @@ import jakarta.annotation.PostConstruct;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -25,11 +24,23 @@ public class ServerConfig {
   @NotNull(message = "Algorithm must be specified")
   private String algorithm = "round-robin";
 
+  private HealthCheck healthCheck = new HealthCheck();
+
   @Data
   public static class Server {
     @NotEmpty(message = "Server URL cannot be empty")
     private String url;
     private boolean healthy = true;
+    private int consecutiveFailures = 0;
+  }
+
+  @Data
+  public static class HealthCheck {
+    private String path = "/health";
+    private int intervalSeconds = 30;
+    private int timeoutSeconds = 5;
+    private int maxFailures = 3;
+    private int successThreshold = 2;
   }
 
   @PostConstruct

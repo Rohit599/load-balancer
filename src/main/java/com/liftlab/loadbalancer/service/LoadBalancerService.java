@@ -59,25 +59,6 @@ public class LoadBalancerService {
     }
   }
 
-  public void registerServer(String serverUrl) {
-    if (serverConfig.getServers().stream().anyMatch(server -> server.getUrl().equals(serverUrl))) {
-      throw new IllegalArgumentException("Server already registered: " + serverUrl);
-    }
-    Server newServer = new Server();
-    newServer.setUrl(serverUrl);
-    newServer.setHealthy(true);
-    serverConfig.getServers().add(newServer);
-    log.info("Registered new server: {}", serverUrl);
-  }
-
-  public void unregisterServer(String serverUrl) {
-    boolean removed = serverConfig.getServers().removeIf(server -> server.getUrl().equals(serverUrl));
-    if (!removed) {
-      throw new IllegalArgumentException("Server not found: " + serverUrl);
-    }
-    log.info("Unregistered server: {}", serverUrl);
-  }
-
   public List<Server> getRegisteredServers() {
     return serverConfig.getServers();
   }

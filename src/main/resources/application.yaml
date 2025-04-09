@@ -11,6 +11,13 @@ loadbalancer:
     - url: http://localhost:8083
       healthy: true
 
+  health-check:
+    path: /health
+    interval-seconds: 30
+    timeout-seconds: 5
+    max-failures: 3
+    success-threshold: 2
+
 logging:
   level:
     com.liftlab.loadbalancer: DEBUG
