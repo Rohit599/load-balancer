@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+loadbalancer:
+  algorithm: round-robin
+  servers:
+    - url: http://localhost:8081
+      healthy: true
+    - url: http://localhost:8082
+      healthy: true
+    - url: http://localhost:8083
+      healthy: true
+
+logging:
+  level:
+    com.liftlab.loadbalancer: DEBUG
+    org.springframework: INFO
