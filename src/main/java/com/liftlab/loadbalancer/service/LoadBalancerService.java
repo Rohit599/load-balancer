@@ -4,6 +4,7 @@ import com.liftlab.loadbalancer.algorithm.LoadBalancingAlgorithm;
 import com.liftlab.loadbalancer.config.ServerConfig;
 import com.liftlab.loadbalancer.config.ServerConfig.Server;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequest;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class LoadBalancerService {
   private final ServerConfig serverConfig;
   private final Map<String, LoadBalancingAlgorithm> algorithms;
+  @Getter
   private LoadBalancingAlgorithm currentAlgorithm;
 
   @PostConstruct
